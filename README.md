@@ -1,0 +1,2 @@
+# sinom.cl
+Sinom web
