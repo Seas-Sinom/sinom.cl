@@ -6,23 +6,27 @@
   <title>SINOM | En construcción</title>
   <meta name="robots" content="noindex,nofollow" />
 
+  <!-- Tipografía premium (Google Fonts) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
   <style>
     :root{
       /* Colores corporativos (aprox desde el logo) */
       --blue-deep:#365FA0;
       --blue:#4A97C4;
       --blue-soft:#84BBD2;
-      --coal:#1F1B1A;
 
       --bg0:#070A0F;
       --bg1:#0B0F14;
 
-      --text: rgba(232,238,246,.92);
-      --muted: rgba(232,238,246,.70);
-      --stroke: rgba(255,255,255,.12);
-      --glass: rgba(255,255,255,.05);
-      --shadow: 0 28px 80px rgba(0,0,0,.55);
-      --radius: 22px;
+      --text: rgba(240,245,255,.92);
+      --muted: rgba(240,245,255,.70);
+      --stroke: rgba(255,255,255,.10);
+      --glass: rgba(255,255,255,.035);
+      --shadow: 0 30px 90px rgba(0,0,0,.60);
+      --radius: 26px;
     }
 
     *{ box-sizing:border-box; }
@@ -30,86 +34,110 @@
 
     body{
       margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color: var(--text);
       background:
-        radial-gradient(900px 600px at 15% 25%, rgba(74,152,195,.20), transparent 55%),
-        radial-gradient(850px 520px at 85% 22%, rgba(54,95,160,.22), transparent 55%),
-        radial-gradient(900px 620px at 50% 115%, rgba(132,187,210,.16), transparent 60%),
-        linear-gradient(180deg, var(--bg0) 0%, var(--bg1) 62%, var(--bg0) 100%);
+        radial-gradient(1000px 700px at 18% 22%, rgba(74,152,195,.18), transparent 58%),
+        radial-gradient(900px 650px at 82% 26%, rgba(54,95,160,.18), transparent 58%),
+        radial-gradient(900px 700px at 50% 115%, rgba(132,187,210,.12), transparent 62%),
+        linear-gradient(180deg, var(--bg0) 0%, var(--bg1) 64%, var(--bg0) 100%);
       overflow:hidden;
     }
 
-    /* Glow sutil */
+    /* “Grano” ultra sutil para textura premium */
+    .noise{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.06;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+    }
+
+    /* Glow muy controlado (menos “neón”, más “lux”) */
     .glow{
-      position:fixed; inset:-25%;
+      position:fixed;
+      inset:-25%;
       pointer-events:none;
       background:
-        radial-gradient(closest-side at 30% 25%, rgba(132,187,210,.18), transparent 60%),
-        radial-gradient(closest-side at 75% 30%, rgba(74,152,195,.16), transparent 60%),
-        radial-gradient(closest-side at 55% 85%, rgba(54,95,160,.16), transparent 62%);
-      filter: blur(18px);
+        radial-gradient(closest-side at 28% 24%, rgba(132,187,210,.12), transparent 60%),
+        radial-gradient(closest-side at 78% 30%, rgba(74,152,195,.10), transparent 60%),
+        radial-gradient(closest-side at 55% 86%, rgba(54,95,160,.10), transparent 62%);
+      filter: blur(24px);
       opacity:.95;
-      animation: drift 10s ease-in-out infinite alternate;
+      animation: drift 12s ease-in-out infinite alternate;
     }
     @keyframes drift{
-      from{ transform: translate3d(-1.2%, -0.8%, 0) scale(1.02); }
-      to{ transform: translate3d(1.2%, 0.8%, 0) scale(1.06); }
+      from{ transform: translate3d(-1.0%, -0.6%, 0) scale(1.02); }
+      to{ transform: translate3d(1.0%, 0.6%, 0) scale(1.05); }
     }
 
     .wrap{
       min-height:100%;
       display:grid;
       place-items:center;
-      padding: 28px 18px;
+      padding: 36px 18px;
     }
 
     .card{
-      width: min(900px, 96vw);
+      width: min(920px, 96vw);
       border-radius: var(--radius);
       background: var(--glass);
       border: 1px solid var(--stroke);
       box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      padding: 34px 28px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 42px 30px 34px;
       text-align:center;
-      animation: cardIn 700ms ease-out both;
+      animation: cardIn 800ms cubic-bezier(.2,.9,.2,1) both;
     }
     @keyframes cardIn{
-      from{ opacity:0; transform: translateY(14px); }
+      from{ opacity:0; transform: translateY(16px); }
       to{ opacity:1; transform: translateY(0); }
     }
 
-    /* LOGO centrado + “llenado” */
+    /* Logo: grande y limpio */
     .logoWrap{
-      width: min(620px, 86vw); /* tamaño no tan pequeño */
+      width: min(640px, 88vw);
       margin: 0 auto 18px;
       position: relative;
-      display:block;
-      filter: drop-shadow(0 18px 38px rgba(0,0,0,.55));
-      animation: logoIn 720ms cubic-bezier(.2,.9,.2,1) both;
+      filter: drop-shadow(0 18px 42px rgba(0,0,0,.55));
+      animation: logoIn 820ms cubic-bezier(.2,.9,.2,1) both;
     }
     @keyframes logoIn{
       from{ opacity:0; transform: translateY(10px) scale(.985); }
       to{ opacity:1; transform: translateY(0) scale(1); }
     }
-
     .logoBase{
-      width: 100%;
-      height: auto;
+      width:100%;
+      height:auto;
       display:block;
-      opacity: .92;
+      opacity:.94;
     }
 
-    /* Capa que “llena” el logo usando máscara (mask) */
-    .logoFill{
+    /* Scanline “de lujo”: más suave, con bloom */
+    .logoScan{
       position:absolute;
       inset:0;
-      background: linear-gradient(90deg, var(--blue-deep), var(--blue), var(--blue-soft));
-      opacity: .95;
+      background:
+        linear-gradient(
+          90deg,
+          transparent 0%,
+          rgba(132,187,210,0.00) 38%,
+          rgba(132,187,210,0.35) 46%,
+          rgba(74,152,195,0.75) 50%,
+          rgba(54,95,160,0.35) 54%,
+          rgba(132,187,210,0.00) 62%,
+          transparent 100%
+        );
+      opacity:.95;
+      transform: translateX(-120%);
+      animation: scan 2.9s ease-in-out infinite;
+      mix-blend-mode: screen;
+      filter: blur(0.2px);
 
-      /* Usamos el PNG como máscara para que solo se vea “dentro” del logo */
+      /* Mascara: solo dentro del logo */
       -webkit-mask-image: url("./assets/sinom-logo.png");
       -webkit-mask-repeat: no-repeat;
       -webkit-mask-position: center;
@@ -119,49 +147,60 @@
       mask-repeat: no-repeat;
       mask-position: center;
       mask-size: contain;
+    }
 
-      transform-origin: left center;
-      transform: scaleX(0);
-      animation: fill 2.8s ease-in-out infinite;
+    /* Sombra/bloom suave para que se sienta “real” */
+    .logoScan::after{
+      content:"";
+      position:absolute;
+      inset:-8px;
+      background: inherit;
+      opacity:.45;
+      filter: blur(10px);
       mix-blend-mode: screen;
     }
 
-    @keyframes fill{
-      0%   { transform: scaleX(0);   opacity:.0; }
-      12%  { opacity:.95; }
-      70%  { transform: scaleX(1);   opacity:.95; }
-      85%  { opacity:.75; }
-      100% { transform: scaleX(0);   opacity:.0; }
+    @keyframes scan{
+      0%   { transform: translateX(-130%); opacity: 0; }
+      20%  { opacity: .95; }
+      58%  { opacity: .95; }
+      82%  { opacity: .35; }
+      100% { transform: translateX(130%); opacity: 0; }
     }
 
-    /* Barra de progreso (fallback y extra pro) */
-    .progress{
-      width: min(520px, 82vw);
-      height: 10px;
-      margin: 10px auto 0;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.06);
-      overflow:hidden;
-    }
-    .bar{
-      height:100%;
-      width: 38%;
+    /* Línea fina arriba (firma visual premium) */
+    .hairline{
+      width: min(560px, 82vw);
+      height: 2px;
+      margin: 6px auto 22px;
       border-radius: 999px;
       background: linear-gradient(90deg, var(--blue-deep), var(--blue), var(--blue-soft));
-      animation: slide 1.5s ease-in-out infinite;
+      opacity:.85;
+      position: relative;
+      overflow:hidden;
     }
-    @keyframes slide{
-      0%   { transform: translateX(-120%); opacity:.65; }
-      50%  { opacity:1; }
-      100% { transform: translateX(320%); opacity:.65; }
+    .hairline::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent);
+      transform: translateX(-60%);
+      animation: sheen 3.2s ease-in-out infinite;
+      mix-blend-mode: overlay;
+    }
+    @keyframes sheen{
+      0%{ transform: translateX(-60%); opacity:0; }
+      35%{ opacity:.7; }
+      70%{ opacity:0; }
+      100%{ transform: translateX(160%); opacity:0; }
     }
 
     h1{
-      margin: 18px 0 6px;
-      font-size: clamp(30px, 4.6vw, 52px);
-      line-height: 1.05;
-      letter-spacing: .2px;
+      margin: 0 0 8px;
+      font-weight: 500;
+      font-size: clamp(32px, 4.8vw, 54px);
+      letter-spacing: -0.02em;
+      line-height: 1.02;
     }
     .grad{
       background: linear-gradient(90deg, var(--blue-soft), var(--blue), var(--blue-deep));
@@ -172,10 +211,11 @@
 
     p{
       margin: 10px auto 0;
-      max-width: 62ch;
+      max-width: 64ch;
       color: var(--muted);
+      font-weight: 300;
       font-size: 16px;
-      line-height: 1.6;
+      line-height: 1.65;
     }
 
     .meta{
@@ -184,45 +224,74 @@
       justify-content:center;
       gap: 10px;
       flex-wrap:wrap;
-      color: rgba(232,238,246,.62);
+      color: rgba(240,245,255,.62);
       font-size: 13px;
+      font-weight: 400;
     }
     .pill{
-      border: 1px solid rgba(74,152,195,.35);
-      background: rgba(74,152,195,.12);
-      color: rgba(191,231,255,.95);
+      border: 1px solid rgba(74,152,195,.30);
+      background: rgba(74,152,195,.10);
+      color: rgba(210,242,255,.92);
       padding: 6px 10px;
       border-radius: 999px;
     }
 
+    /* Indicador de carga súper minimal */
+    .loader{
+      width: min(420px, 76vw);
+      height: 10px;
+      margin: 18px auto 0;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.045);
+      overflow:hidden;
+    }
+    .loader > i{
+      display:block;
+      height:100%;
+      width: 34%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--blue-deep), var(--blue), var(--blue-soft));
+      animation: slide 1.7s ease-in-out infinite;
+      opacity:.9;
+    }
+    @keyframes slide{
+      0%   { transform: translateX(-130%); opacity:.55; }
+      50%  { opacity:1; }
+      100% { transform: translateX(330%); opacity:.55; }
+    }
+
     footer{
-      margin-top: 18px;
+      margin-top: 22px;
       display:flex;
       justify-content:space-between;
       gap: 10px;
       flex-wrap:wrap;
-      color: rgba(232,238,246,.52);
+      color: rgba(240,245,255,.50);
       font-size: 12px;
+      font-weight: 400;
     }
 
     /* Accesibilidad */
     @media (prefers-reduced-motion: reduce){
-      .glow, .card, .logoWrap, .logoFill, .bar { animation: none !important; }
-      .logoFill{ display:none; }
+      .glow, .card, .logoWrap, .logoScan, .hairline::after, .loader > i { animation: none !important; }
+      .logoScan{ display:none; }
     }
   </style>
 </head>
 
 <body>
   <div class="glow"></div>
+  <div class="noise"></div>
 
   <div class="wrap">
     <main class="card" aria-label="Sitio en construcción">
       <div class="logoWrap" aria-hidden="true">
         <img class="logoBase" src="./assets/sinom-logo.png" alt="" />
-        <div class="logoFill"></div>
-        <div class="progress"><div class="bar"></div></div>
+        <div class="logoScan"></div>
       </div>
+
+      <div class="hairline"></div>
 
       <h1><span class="grad">En construcción.</span></h1>
       <p>Pronto disponible.</p>
@@ -233,6 +302,8 @@
         <span>•</span>
         <span>B2B (Business-to-Business: empresa a empresa)</span>
       </div>
+
+      <div class="loader" aria-label="Cargando"><i></i></div>
 
       <footer>
         <span>© <span id="y"></span> SINOM</span>
