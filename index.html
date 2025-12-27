@@ -6,7 +6,7 @@
   <title>SINOM | En construcción</title>
   <meta name="robots" content="noindex,nofollow" />
 
-  <!-- Favicon (solo el que existe en tu assets) -->
+  <!-- Favicon (según tu assets actual) -->
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -103,23 +103,32 @@
     }
 
     .logoWrap{
-  width: min(720px, 90vw);
-  position: relative;
-  filter: drop-shadow(0 22px 55px rgba(0,0,0,.55));
-}
+      width: min(720px, 90vw);
+      position: relative;
+      filter: drop-shadow(0 22px 55px rgba(0,0,0,.55));
+    }
 
-/* FIX: altura explícita para SVG, no height:auto */
-.logoBase{
-  height: clamp(120px, 18vw, 220px);
-  width: auto;
-  max-width: 100%;
-  display:block;
-  margin: 0 auto;
-  opacity:.94;
-  filter: drop-shadow(0 10px 28px rgba(0,0,0,.35));
-}
+    /* Contenedor con altura fija para asegurar render */
+    .logoBox{
+      width: 100%;
+      height: clamp(140px, 18vw, 240px);
+      display:grid;
+      place-items:center;
+      position: relative;
+    }
 
-    /* Scanline usando el SVG oficial como máscara */
+    /* Imagen del logo (SVG o PNG fallback) */
+    .logoBase{
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: 100%;
+      display:block;
+      opacity:.96;
+      filter: drop-shadow(0 10px 28px rgba(0,0,0,.35));
+    }
+
+    /* Scanline ultra sutil: máscara se setea por JS según logo activo */
     .logoScan{
       position:absolute;
       inset:0;
@@ -139,15 +148,14 @@
       animation: scan 4.6s ease-in-out infinite;
       mix-blend-mode: screen;
 
-      -webkit-mask-image: url("/assets/SN_logo_linked_hires.svg");
       -webkit-mask-repeat: no-repeat;
       -webkit-mask-position: center;
       -webkit-mask-size: contain;
 
-      mask-image: url("/assets/SN_logo_linked_hires.svg");
       mask-repeat: no-repeat;
       mask-position: center;
       mask-size: contain;
+      pointer-events:none;
     }
 
     .logoScan::after{
@@ -286,10 +294,20 @@
 
   <div class="wrap">
     <main class="stage" aria-label="Sitio en construcción">
+
       <div class="logoWrap" aria-hidden="true">
-        <!-- Tu tag oficial -->
-        <img src="/assets/SN_logo_linked_hires.svg" alt="Sinom" height="56" class="logoBase" loading="eager" decoding="async" />
-        <div class="logoScan"></div>
+        <div class="logoBox">
+          <!-- Logo (SVG). Si no renderiza, cae al PNG -->
+          <img
+            id="snLogo"
+            class="logoBase"
+            src="/assets/SN_logo_linked_hires.svg"
+            alt="Sinom"
+            decoding="async"
+            loading="eager"
+          />
+          <div id="snScan" class="logoScan"></div>
+        </div>
       </div>
 
       <div class="hairline"></div>
@@ -312,6 +330,7 @@
   </footer>
 
   <script>
+    // Año
     document.getElementById("y").textContent = new Date().getFullYear();
 
     // Cursor glow sutil
@@ -347,6 +366,25 @@
         }, 520);
       }, cycleMs);
     }
+
+    // Fallback robusto + scanline mask
+    const logo = document.getElementById("snLogo");
+    const scan = document.getElementById("snScan");
+
+    const setMask = (url) => {
+      scan.style.webkitMaskImage = `url("${url}")`;
+      scan.style.maskImage = `url("${url}")`;
+    };
+
+    // Por defecto: intenta SVG
+    setMask("/assets/SN_logo_linked_hires.svg");
+
+    // Si el SVG falla, pasamos al PNG y actualizamos máscara
+    logo.addEventListener("error", () => {
+      const fallback = "/assets/SN_logo_transparente_sin_halo_3000w.png";
+      logo.src = fallback;
+      setMask(fallback);
+    }, { once: true });
   </script>
 </body>
 </html>
