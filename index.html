@@ -3,20 +3,284 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SINOM</title>
+  <title>SINOM | En construcción</title>
+
+  <!-- SEO básico -->
+  <meta name="description" content="Sitio en construcción. SINOM: soluciones IVD para veterinaria y, luego, humano." />
+  <meta name="robots" content="noindex,nofollow" />
+
+  <!-- OG (Open Graph: metadatos para previsualización al compartir links) -->
+  <meta property="og:title" content="SINOM | En construcción" />
+  <meta property="og:description" content="Estamos construyendo el sitio. Contáctanos para cotizaciones." />
+  <meta property="og:type" content="website" />
+
+  <style>
+    :root{
+      --ink: #0B0F14;
+      --coal: #1F1B1A;
+      --blue-deep: #365FA0;
+      --blue: #4A97C4;
+      --blue-soft: #84BBD2;
+      --text: rgba(232,238,246,.92);
+      --muted: rgba(232,238,246,.72);
+      --glass: rgba(255,255,255,.06);
+      --stroke: rgba(255,255,255,.12);
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+      --radius: 20px;
+    }
+
+    *{ box-sizing: border-box; }
+
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1000px 600px at 15% 25%, rgba(74,152,195,.22), transparent 55%),
+        radial-gradient(900px 520px at 85% 20%, rgba(54,95,160,.22), transparent 55%),
+        radial-gradient(900px 600px at 50% 110%, rgba(132,187,210,.18), transparent 60%),
+        linear-gradient(180deg, #070A0F 0%, #0B0F14 55%, #070A0F 100%);
+      overflow-x:hidden;
+    }
+
+    /* grano sutil para look “premium” */
+    .noise{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.06;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+    }
+
+    .wrap{
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      padding: 32px 18px;
+    }
+
+    .card{
+      width:min(860px, 96vw);
+      border-radius: var(--radius);
+      background: var(--glass);
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 34px;
+      position:relative;
+    }
+
+    .topline{
+      height: 3px;
+      width:100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--blue-deep), var(--blue), var(--blue-soft));
+      opacity:.95;
+      margin-bottom: 18px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .logo{
+      width: min(360px, 70vw);
+      height:auto;
+      display:block;
+      filter: drop-shadow(0 10px 22px rgba(0,0,0,.35));
+    }
+
+    h1{
+      margin: 6px 0 10px;
+      font-size: clamp(28px, 4.2vw, 42px);
+      letter-spacing: .2px;
+      line-height: 1.08;
+    }
+
+    .gradtext{
+      background: linear-gradient(90deg, var(--blue-soft), var(--blue), var(--blue-deep));
+      -webkit-background-clip: text;
+      background-clip:text;
+      color: transparent;
+    }
+
+    p{
+      margin: 10px 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.55;
+    }
+
+    .grid{
+      margin-top: 18px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 18px;
+    }
+
+    @media (max-width: 860px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    .panel{
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.14);
+      padding: 18px;
+    }
+
+    .label{
+      display:inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      letter-spacing: .3px;
+      color: rgba(191,231,255,.95);
+      border: 1px solid rgba(74,152,195,.35);
+      background: rgba(74,152,195,.14);
+      margin-bottom: 10px;
+    }
+
+    .actions{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      margin-top: 12px;
+    }
+
+    a.btn{
+      text-decoration:none;
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.08);
+      transition: transform 120ms ease, background 120ms ease, border-color 120ms ease;
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+    }
+
+    a.btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.12);
+      border-color: rgba(132,187,210,.32);
+    }
+
+    .btn.primary{
+      border-color: rgba(74,152,195,.40);
+      background: linear-gradient(180deg, rgba(74,152,195,.22), rgba(54,95,160,.18));
+    }
+
+    .kpi{
+      display:grid;
+      gap: 10px;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .kpi strong{ color: var(--text); font-weight: 650; }
+
+    .progress{
+      margin-top: 14px;
+      height: 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.06);
+      overflow:hidden;
+    }
+
+    .bar{
+      height:100%;
+      width: 62%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--blue-deep), var(--blue), var(--blue-soft));
+      animation: shimmer 2.2s ease-in-out infinite alternate;
+      filter: saturate(1.05);
+    }
+
+    @keyframes shimmer{
+      from{ transform: translateX(-4%); opacity:.85; }
+      to{ transform: translateX(4%); opacity:1; }
+    }
+
+    footer{
+      margin-top: 18px;
+      font-size: 12px;
+      color: rgba(232,238,246,.58);
+      display:flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .tiny{
+      opacity:.9;
+    }
+  </style>
 </head>
-<body style="font-family: Arial, sans-serif; padding: 48px; max-width: 900px;">
-  <h1>SINOM</h1>
-  <p><strong>IVD</strong> (In Vitro Diagnostics: diagnóstico in vitro) para veterinaria y, luego, humano.</p>
 
-  <h2>Qué hacemos</h2>
-  <ul>
-    <li>Test rápidos veterinarios (Rapid tests: pruebas rápidas)</li>
-    <li>Insumos de laboratorio (Consumibles: material de uso frecuente)</li>
-  </ul>
+<body>
+  <div class="noise"></div>
 
-  <h2>Contacto</h2>
-  <p>Email: <a href="mailto:contacto@sinom.cl">contacto@sinom.cl</a></p>
-  <p>WhatsApp: <a href="https://wa.me/56TU_NUMERO">+56 TU NÚMERO</a></p>
+  <div class="wrap">
+    <main class="card">
+      <div class="topline"></div>
+
+      <div class="brand">
+        <img class="logo" src="assets/sinom-logo.png" alt="SINOM" />
+      </div>
+
+      <h1><span class="gradtext">En construcción</span></h1>
+      <p>
+        Estamos armando el sitio de <strong>SINOM</strong>.
+        Si necesitas información o cotizar, escríbenos y te respondemos rápido.
+      </p>
+
+      <div class="grid">
+        <section class="panel">
+          <div class="label">Contacto</div>
+          <p class="tiny">Deja tu requerimiento (IVD: <em>In Vitro Diagnostics</em>, diagnóstico in vitro) y te orientamos.</p>
+
+          <div class="actions">
+            <a class="btn primary" href="mailto:contacto@sinom.cl">✉️ contacto@sinom.cl</a>
+
+            <!-- WhatsApp (cambia TU_NUMERO por ej 569XXXXXXXX) -->
+            <a class="btn" href="https://wa.me/56TU_NUMERO">💬 WhatsApp</a>
+          </div>
+        </section>
+
+        <aside class="panel">
+          <div class="label">Estado</div>
+          <div class="kpi">
+            <div><strong>Sitio:</strong> armado visual + catálogo</div>
+            <div><strong>Operación:</strong> ventas B2B (Business-to-Business: empresa a empresa)</div>
+            <div><strong>Foco inicial:</strong> veterinaria</div>
+          </div>
+
+          <div class="progress" aria-label="Progreso">
+            <div class="bar"></div>
+          </div>
+        </aside>
+      </div>
+
+      <footer>
+        <div>© <span id="y"></span> SINOM</div>
+        <div>sinom.cl</div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
