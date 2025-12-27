@@ -6,7 +6,6 @@
   <title>SINOM | En construcción</title>
   <meta name="robots" content="noindex,nofollow" />
 
-  <!-- Favicon (según tu assets actual) -->
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -102,13 +101,23 @@
       to{ opacity:1; transform: translateY(0) scale(1); }
     }
 
-    .logoWrap{
-      width: min(720px, 90vw);
+    /* PLACA GLASS: hace visible el logo negro en fondo oscuro */
+    .logoPlate{
+      width: min(760px, 92vw);
+      border-radius: 26px;
+      padding: clamp(16px, 2.2vw, 22px);
       position: relative;
-      filter: drop-shadow(0 22px 55px rgba(0,0,0,.55));
+      background:
+        radial-gradient(680px 220px at 30% 25%, rgba(255,255,255,.10), transparent 55%),
+        linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.04));
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow:
+        0 22px 60px rgba(0,0,0,.45),
+        inset 0 1px 0 rgba(255,255,255,.10);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
-    /* Contenedor con altura fija para asegurar render */
     .logoBox{
       width: 100%;
       height: clamp(140px, 18vw, 240px);
@@ -117,18 +126,16 @@
       position: relative;
     }
 
-    /* Imagen del logo (SVG o PNG fallback) */
     .logoBase{
       max-width: 100%;
       max-height: 100%;
       width: auto;
       height: 100%;
       display:block;
-      opacity:.96;
-      filter: drop-shadow(0 10px 28px rgba(0,0,0,.35));
+      opacity: .98;
     }
 
-    /* Scanline ultra sutil: máscara se setea por JS según logo activo */
+    /* Scanline (máscara se define por JS con el logo activo) */
     .logoScan{
       position:absolute;
       inset:0;
@@ -137,24 +144,24 @@
           90deg,
           transparent 0%,
           rgba(132,187,210,0.00) 40%,
-          rgba(132,187,210,0.18) 47%,
-          rgba(74,152,195,0.40) 50%,
-          rgba(54,95,160,0.18) 53%,
+          rgba(132,187,210,0.16) 47%,
+          rgba(74,152,195,0.36) 50%,
+          rgba(54,95,160,0.16) 53%,
           rgba(132,187,210,0.00) 60%,
           transparent 100%
         );
       opacity:.85;
       transform: translateX(-130%);
-      animation: scan 4.6s ease-in-out infinite;
+      animation: scan 4.8s ease-in-out infinite;
       mix-blend-mode: screen;
 
       -webkit-mask-repeat: no-repeat;
       -webkit-mask-position: center;
       -webkit-mask-size: contain;
-
       mask-repeat: no-repeat;
       mask-position: center;
       mask-size: contain;
+
       pointer-events:none;
     }
 
@@ -163,7 +170,7 @@
       position:absolute;
       inset:-10px;
       background: inherit;
-      opacity:.22;
+      opacity:.20;
       filter: blur(14px);
       mix-blend-mode: screen;
     }
@@ -184,7 +191,7 @@
       opacity:.78;
       position: relative;
       overflow:hidden;
-      margin-top: 8px;
+      margin-top: 10px;
     }
     .hairline::after{
       content:"";
@@ -295,9 +302,8 @@
   <div class="wrap">
     <main class="stage" aria-label="Sitio en construcción">
 
-      <div class="logoWrap" aria-hidden="true">
+      <div class="logoPlate" aria-hidden="true">
         <div class="logoBox">
-          <!-- Logo (SVG). Si no renderiza, cae al PNG -->
           <img
             id="snLogo"
             class="logoBase"
@@ -330,10 +336,8 @@
   </footer>
 
   <script>
-    // Año
     document.getElementById("y").textContent = new Date().getFullYear();
 
-    // Cursor glow sutil
     const root = document.documentElement;
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -346,15 +350,12 @@
       update(window.innerWidth / 2, window.innerHeight / 2);
     }
 
-    // Rotación de microcopy con fade
     const el = document.getElementById("msg");
     const messages = [
       `Estamos afinando los últimos detalles.<span class="sub">Pronto disponible.</span>`,
       `Catálogo y fichas técnicas en camino.<span class="sub">Volvemos en breve.</span>`
     ];
-
     let i = 0;
-    const cycleMs = 4200;
 
     if (!prefersReduced) {
       setInterval(() => {
@@ -364,10 +365,9 @@
           el.innerHTML = messages[i];
           el.classList.remove("out");
         }, 520);
-      }, cycleMs);
+      }, 4200);
     }
 
-    // Fallback robusto + scanline mask
     const logo = document.getElementById("snLogo");
     const scan = document.getElementById("snScan");
 
@@ -376,10 +376,10 @@
       scan.style.maskImage = `url("${url}")`;
     };
 
-    // Por defecto: intenta SVG
+    // Intenta SVG
     setMask("/assets/SN_logo_linked_hires.svg");
 
-    // Si el SVG falla, pasamos al PNG y actualizamos máscara
+    // Fallback a PNG si el SVG no renderiza por cualquier motivo
     logo.addEventListener("error", () => {
       const fallback = "/assets/SN_logo_transparente_sin_halo_3000w.png";
       logo.src = fallback;
