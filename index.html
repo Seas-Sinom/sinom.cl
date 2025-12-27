@@ -103,19 +103,21 @@
     }
 
     .logoWrap{
-      width: min(720px, 90vw);
-      position: relative;
-      filter: drop-shadow(0 22px 55px rgba(0,0,0,.55));
-    }
+  width: min(720px, 90vw);
+  position: relative;
+  filter: drop-shadow(0 22px 55px rgba(0,0,0,.55));
+}
 
-    /* OJO: el height="56" del tag lo “mandamos a la banca”
-       para que el logo quede grande como landing premium */
-    .logoBase{
-      width:100%;
-      height:auto;
-      display:block;
-      opacity:.94;
-    }
+/* FIX: altura explícita para SVG, no height:auto */
+.logoBase{
+  height: clamp(120px, 18vw, 220px);
+  width: auto;
+  max-width: 100%;
+  display:block;
+  margin: 0 auto;
+  opacity:.94;
+  filter: drop-shadow(0 10px 28px rgba(0,0,0,.35));
+}
 
     /* Scanline usando el SVG oficial como máscara */
     .logoScan{
