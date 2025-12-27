@@ -6,33 +6,8 @@
   <title>SINOM | En construcción</title>
   <meta name="robots" content="noindex,nofollow" />
 
-  <!-- SEO / Preview pro (si ya lo agregaste antes, no lo dupliques) -->
-  <link rel="canonical" href="https://sinom.cl/" />
-  <meta name="description" content="SINOM. Estamos afinando los últimos detalles. Pronto disponible." />
-  <meta name="theme-color" content="#365FA0" />
-
-  <!-- Favicons / Manifest (ajusta nombres si tus archivos difieren) -->
-  <link rel="icon" href="/assets/favicon.ico" sizes="any">
+  <!-- Favicon (solo el que existe en tu assets) -->
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
-  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-  <link rel="manifest" href="/site.webmanifest">
-
-  <!-- Open Graph (WhatsApp/LinkedIn) -->
-  <meta property="og:site_name" content="SINOM" />
-  <meta property="og:title" content="SINOM | En construcción" />
-  <meta property="og:description" content="Estamos afinando los últimos detalles. Pronto disponible." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://sinom.cl/" />
-  <meta property="og:image" content="https://sinom.cl/assets/og-image.png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="SINOM | En construcción" />
-  <meta name="twitter:description" content="Estamos afinando los últimos detalles. Pronto disponible." />
-  <meta name="twitter:image" content="https://sinom.cl/assets/og-image.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -133,14 +108,16 @@
       filter: drop-shadow(0 22px 55px rgba(0,0,0,.55));
     }
 
+    /* OJO: el height="56" del tag lo “mandamos a la banca”
+       para que el logo quede grande como landing premium */
     .logoBase{
       width:100%;
-      height:auto; /* esto sobreescribe el height=56 del tag, para que quede grande */
+      height:auto;
       display:block;
       opacity:.94;
     }
 
-    /* Scanline ultra sutil */
+    /* Scanline usando el SVG oficial como máscara */
     .logoScan{
       position:absolute;
       inset:0;
@@ -160,7 +137,6 @@
       animation: scan 4.6s ease-in-out infinite;
       mix-blend-mode: screen;
 
-      /* Máscara usando el mismo SVG oficial */
       -webkit-mask-image: url("/assets/SN_logo_linked_hires.svg");
       -webkit-mask-repeat: no-repeat;
       -webkit-mask-position: center;
@@ -171,6 +147,7 @@
       mask-position: center;
       mask-size: contain;
     }
+
     .logoScan::after{
       content:"";
       position:absolute;
@@ -180,6 +157,7 @@
       filter: blur(14px);
       mix-blend-mode: screen;
     }
+
     @keyframes scan{
       0%   { transform: translateX(-135%); opacity: 0; }
       22%  { opacity: .85; }
@@ -227,7 +205,6 @@
       color: transparent;
     }
 
-    /* Mensajes rotatorios */
     .copy{
       margin: 10px 0 0;
       max-width: 56ch;
@@ -254,7 +231,6 @@
       opacity: .92;
     }
 
-    /* Loader 3 puntos minimal */
     .dots{
       margin-top: 18px;
       display:flex;
@@ -309,10 +285,8 @@
   <div class="wrap">
     <main class="stage" aria-label="Sitio en construcción">
       <div class="logoWrap" aria-hidden="true">
-
-        <!-- Tu tag oficial, integrado (CSS lo deja grande) -->
-        <img src="/assets/SN_logo_linked_hires.svg" alt="Sinom" height="56" class="logoBase" loading="eager" decoding="async">
-
+        <!-- Tu tag oficial -->
+        <img src="/assets/SN_logo_linked_hires.svg" alt="Sinom" height="56" class="logoBase" loading="eager" decoding="async" />
         <div class="logoScan"></div>
       </div>
 
